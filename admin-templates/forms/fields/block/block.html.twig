@@ -1,0 +1,36 @@
+{% set value = (value is null ? field.default : value) %}
+{% set value = (value ? value : []) %}
+
+{% if field.fields %}
+    {%- for child_name, child in field.fields -%}
+        {% set child = prepare_form_field(child, child_name, item_name) %}
+        {% if child %}
+            {% set child = child|merge({ '_list_index': item_name }) %}
+            {% set default_layout = 'text' %}
+            {% if child.type == 'key' or (child.key == true and child.type != 'list') %}
+                {# Special handling for the key field #}
+                {% set default_layout = 'key' %}
+                {% set child_value = key %}
+            {% elseif child.name == 'value' %}
+                {# Special handling for the value field #}
+                {% set child = child|merge({ name: item_name }) %}
+                {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
+            {% else %}
+                {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
+                {# Look for a default value for that field #}
+                {% if child_value is null and block_field_Value[child_name|trim('.', 'left')] is defined %}
+                    {% set child_value = block_field_Value[child_name|trim('.', 'left')] %}
+                {% endif %}
+            {% endif %}
+
+            {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+            {% set template_data = { field: child, value: child_value, originalValue: null } %}
+            {% if default_layout != 'key' %}
+                {% if child.type == 'fieldset' %}
+                    {% set template_data = template_data|merge({val: child_value}) %}
+                {% endif %}
+            {% endif %}
+            {%- include field_templates with template_data -%}
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,18 @@
+name: Blocks Plugin
+slug: bootstrap
+type: plugin
+version: 1.0.0
+description: Adds an advanced administration panel to manage your site
+icon: empire
+author:
+  name: Team Grav
+  email: devs@getgrav.org
+  url: https://getgrav.org
+homepage: https://github.com/getgrav/grav-plugin-admin
+keywords: admin, plugin, manager, panel
+bugs: https://github.com/getgrav/grav-plugin-admin/issues
+docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
+license: MIT
+
+dependencies:
+    - { name: grav, version: '>=1.7.42' }

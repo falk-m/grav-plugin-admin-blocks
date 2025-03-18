@@ -1,0 +1,38 @@
+{% set name = field.name %}
+{% set uidPlaceholder = '|--BLOCK-UID--|' %}
+
+{% for block_name, block_field in field.fields %}
+        {% set template %}
+                {%- set item_name = (name ? name ~ '.' ~ uidPlaceholder : uidPlaceholder) ~ block_name -%}
+
+                {% set child = block_field|merge({ name: item_name }) %}
+                
+                {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                {% set template_data = { field: child, value: null, originalValue: null } %}
+
+                {% if default_layout != 'key' %}
+                    {% if child.type == 'fieldset' %}
+                        {% set template_data = template_data|merge({val: child_value}) %}
+                    {% endif %}
+                {% endif %}
+
+                <li>
+                 
+                        {{ block_field.label }}
+
+                        {%- include field_templates with template_data -%}
+
+                        <div class="item-actions">
+
+                                <i class="fa fa-plus" data-block-action="open-selection" data-block-add-index="0"></i><br/>
+                                <i class="fa fa-chevron-circle-down" data-block-action="toggle"></i><br />
+                                <i class="fa fa-trash-o" data-block-action="open-remove-dialog"></i>
+                                <i data-block-action="move" data-block-direction="up">up</i>
+                                <i data-block-action="move" data-block-direction="down">down</i>
+                        </div>
+                </li>
+        {% endset %}
+
+        <button class="button" type="button" data-block-action="add"
+        data-block-template-html="{{ template|regex_replace('/([ \r\n]+)/', ' ')|e('html_attr') }}"><i class="fa fa-plus"></i> {{ block_field.label }}</button>
+{% endfor %}

@@ -1,0 +1,41 @@
+{% set value = (value is null ? field.default : value) %}
+{% set value = (value ? value : []) %}
+{% set name = field.name %}
+
+<ul  {% if field.classes is defined %}class="{{ field.classes }}"{% endif %} data-block-element="list">
+    {% if field.fields %}
+
+        {% for key, val in value %}
+            {% for block_field_name, block_field_Value in val %}
+                {% set block_field = field.fields['.' ~ block_field_name] %}
+                {% set item_name = (name ? name ~ '.' ~ key : key) ~ '.' ~ block_field_name %}
+                {% set child = block_field|merge({ name: item_name }) %}
+
+                {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                {% set template_data = { field: child, value: block_field_Value, originalValue: null } %}
+
+                {% if default_layout != 'key' %}
+                    {% if child.type == 'fieldset' %}
+                        {% set template_data = template_data|merge({val: child_value}) %}
+                    {% endif %}
+                {% endif %}
+
+                <li class="blk-small">
+                     {{ block_field.label }}
+
+                    {%- include field_templates with template_data -%}
+
+                    <div class="item-actions">
+                        <i class="fa fa-plus" data-action="open-selection" data-block-add-index="{{key}}"></i><br/>
+                        <i class="fa fa-chevron-circle-right" data-block-action="toggle"></i> <br /> 
+                        <i class="fa fa-trash-o" data-block-action="open-remove-dialog"></i>
+
+                        <i data-block-action="move" data-block-direction="up">up</i>
+                        <i data-block-action="move" data-block-direction="down">down</i>
+                    </div>
+                </li>
+
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</ul>
