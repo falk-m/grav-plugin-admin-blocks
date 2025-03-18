@@ -1,0 +1,42 @@
+{% extends "forms/field.html.twig" %}
+
+{% set value = (value is null ? field.default : value) %}
+
+{% block contents %}
+
+    {% include 'forms/fields/blocks/label.html.twig' with {field: field} %}
+    
+    <div class="form-data{% if not vertical %} block size-2-3 pure-u-2-3{% endif %}"
+        {% block global_attributes %}
+        data-grav-field="{{ field.type }}"
+        {% endblock %}
+    >
+        <div class="form-list-wrapper {{ field.size }}" data-blocks>
+
+            <div class="blocks__bar blocks__bar--top">
+                <button type="button" class="button" data-block-action="open-selection" data-block-add-position="top"><i class="fa fa-plus"></i> {{ "PLUGIN_BLOCKS.ADD"|t }} </button>
+            </div>    
+            
+            {% include 'forms/fields/blocks/list.html.twig' with {field: field} %}
+
+            <dialog data-block-element="dialog-new" class="blocks__dialog">
+                {% include 'forms/fields/blocks/new.html.twig' with {field: field} %}
+            </dialog>
+
+            <dialog data-block-element="dialog-remove" class="blocks__dialog">
+                <div class="blocks__delete-modal">
+                    <button class="button danger" type="button" data-block-action="remove">
+                        <i class="fa fa-fw text-primary fa-check"></i><span>{{ 'PLUGIN_BLOCKS.DELETE'|t }}</span>
+                    </button>
+                    <button class="button" type="button" data-block-action="close-dialog">{{ 'PLUGIN_BLOCKS.CANCEL'|t }}</button>
+                </div>
+            </dialog>
+
+            <div class="blocks__bar blocks__bar--bottom">
+                <button type="button" class="button {{ value ? '' : 'hidden' }}" data-block-action="open-selection" data-block-add-position="bottom"><i class="fa fa-plus"></i> {{ "PLUGIN_BLOCKS.ADD"|t }} </button>
+            </div>     
+        </div>
+    </div>
+    
+    
+{% endblock %}

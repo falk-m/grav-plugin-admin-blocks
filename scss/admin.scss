@@ -1,3 +1,119 @@
-.blk-small {
-    color: red;
+[data-block-action] {
+    cursor: pointer;
+}
+
+.blocks {
+
+    &__dialog {
+        border: none !important;
+        padding: 0;
+    }
+
+    &__new-modal {
+        background-color: #fff;
+        padding: min(4rem, 8vw);
+        width: min(40rem, 92vw);
+    }
+
+    &__new-button {
+        display: block;
+        width: 100%;
+        margin-top: 2px;
+        text-align: left;
+    }
+
+    &__delete-modal {
+        background-color: #fff;
+        padding: min(4rem, 8vw);
+    }
+
+    &__bar {
+        text-align: right;
+
+        &--top {
+            margin-bottom: 3px;
+        }
+    
+        &--bottom {
+            margin-top: 3px;
+        }
+    }
+
+    
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    &__block {
+        border: 1px solid #e6e6e6;
+        background: white;
+        color: #8b95a1;
+        border-radius: 4px;
+        position: relative;
+
+        &__header {
+            padding: 5px;
+            display: flex;
+            gap: 3px;
+            flex-wrap: wrap-reverse;
+        }
+
+        &__headline {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            flex-grow: 1;
+
+            > span {
+                cursor: pointer;
+                display: block;
+                flex-grow: 1;
+            }
+
+            > button {
+                width: 1.5em;
+            }
+        }
+
+        &__bar {
+            gap: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+
+            > button {
+                width: 1.5em;
+            }
+        }
+
+        .blocks__block__button__expand {
+            display: none;
+        }
+
+        &__content {
+            border-top: 1px solid #e6e6e6;
+            padding-top: 15px;
+        }
+
+        &--collapsed {
+            .blocks__block__content {
+                display: none;
+            }
+
+            .blocks__block__button__collapse {
+                display: none;
+            }
+
+            .blocks__block__button__expand {
+                display: block;
+            }
+        }
+    }
 }

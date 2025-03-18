@@ -1,13 +1,14 @@
 {% set value = (value is null ? field.default : value) %}
 {% set value = (value ? value : []) %}
 {% set name = field.name %}
+{% set list_classes = (field.classes is defined ? field.classes : '') ~ ' blocks__list' %}
 
-<ul  {% if field.classes is defined %}class="{{ field.classes }}"{% endif %} data-block-element="list">
+<ul class="{{ list_classes }}" data-block-element="list">
     {% if field.fields %}
-
         {% for key, val in value %}
             {% for block_field_name, block_field_Value in val %}
                 {% set block_field = field.fields['.' ~ block_field_name] %}
+                {% if block_field %}
                 {% set item_name = (name ? name ~ '.' ~ key : key) ~ '.' ~ block_field_name %}
                 {% set child = block_field|merge({ name: item_name }) %}
 
@@ -20,21 +21,15 @@
                     {% endif %}
                 {% endif %}
 
-                <li class="blk-small">
-                     {{ block_field.label }}
 
-                    {%- include field_templates with template_data -%}
+                {% include 'forms/fields/blocks/block.html.twig' with {
+                    label: block_field.label, 
+                    key: key, 
+                    collapsed: true, 
+                    field_templates:field_templates, 
+                    template_data: template_data} %}
 
-                    <div class="item-actions">
-                        <i class="fa fa-plus" data-action="open-selection" data-block-add-index="{{key}}"></i><br/>
-                        <i class="fa fa-chevron-circle-right" data-block-action="toggle"></i> <br /> 
-                        <i class="fa fa-trash-o" data-block-action="open-remove-dialog"></i>
-
-                        <i data-block-action="move" data-block-direction="up">up</i>
-                        <i data-block-action="move" data-block-direction="down">down</i>
-                    </div>
-                </li>
-
+                {% endif %}
             {% endfor %}
         {% endfor %}
     {% endif %}

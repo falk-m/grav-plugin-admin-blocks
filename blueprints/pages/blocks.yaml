@@ -1,0 +1,43 @@
+title: Block Page
+extends@:
+  type: default
+  context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      fields:
+        content:
+          fields:
+            replace@: true
+            header.title:
+              type: text
+              autofocus: true
+              style: vertical
+              label: PLUGIN_ADMIN.TITLE
+            header.blocks:
+                type: blocks
+                label: Blöcke
+                style: vertical
+                fields:
+                  .headline:
+                    type: section
+                    label: Headline
+                    fields:
+                      .content:
+                        type: text
+                        label: Text
+                      .subtext:
+                        type: text
+                        label: Subtext
+                  .text:
+                    type: editor
+                    label: Inhalt
+                  .image:
+                      type: filepicker
+                      folder: 'self@'
+                      preview_images: true
+                      label: Image
+            header.media_order:
+              type: pagemedia
+              label: PLUGIN_ADMIN.PAGE_MEDIA

@@ -1,2 +1,12 @@
 PLUGIN_BLOCKS:
+  USE_DEMO: demo aktiviert
   ADD: Hinzufügen
+  DELETE: Löchen
+  CANCEL: Abbrechen
+  NEW_HEADLINE: Block hinzufügen
+  ACTION_ADD: Einfügen
+  ACTION_REMOVE: Löchen
+  ACTION_UP: rauf
+  ACTION_DOWN: runter
+  ACTION_EXPAND: Erweitern
+  ACTION_COLLAPSE: Verkleinern

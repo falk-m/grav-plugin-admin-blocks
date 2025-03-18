@@ -1,0 +1,27 @@
+{% set name = field.name %}
+{% set uidPlaceholder = '|--BLOCK-UID--|' %}
+
+<div class="blocks__new-modal">
+
+<h2>{{ 'PLUGIN_BLOCKS.NEW_HEADLINE'|t }}</h2>
+
+{% for block_name, block_field in field.fields %}
+        {% set template %}
+                {%- set item_name = (name ? name ~ '.' ~ uidPlaceholder : uidPlaceholder) ~ block_name -%}
+                {% set child = block_field|merge({ name: item_name }) %}
+                {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                {% set template_data = { field: child, value: null, originalValue: null } %}
+
+                {% include 'forms/fields/blocks/block.html.twig' with {
+                    label: block_field.label, 
+                    key: uidPlaceholder, 
+                    collapsed: false, 
+                    field_templates:field_templates, 
+                    template_data: template_data} %}
+        {% endset %}
+
+        <button class="button blocks__new-button" type="button" data-block-action="add"
+        data-block-template-html="{{ template|regex_replace('/([ \r\n]+)/', ' ')|e('html_attr') }}"><i class="fa fa-plus"></i> {{ block_field.label }}</button>
+{% endfor %}
+
+</div>

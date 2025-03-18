@@ -1,18 +1,42 @@
-name: Blocks Plugin
-slug: bootstrap
+name: Admin Addon Page Blocks
 type: plugin
 version: 1.0.0
-description: Adds an advanced administration panel to manage your site
+description: Adds an simple modular block manager to a page instead of markdown field
 icon: empire
 author:
-  name: Team Grav
-  email: devs@getgrav.org
-  url: https://getgrav.org
-homepage: https://github.com/getgrav/grav-plugin-admin
+  name: Falk Mu://er
+  email: grav@falk-m.org
+  url: https://falk-m.de
+homepage: https://github.com/falk-m/grav-plugin-admin-blocks
 keywords: admin, plugin, manager, panel
-bugs: https://github.com/getgrav/grav-plugin-admin/issues
-docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
+bugs: https://github.com/falk-m/grav-plugin-admin-blocks/issues
+docs: https://github.com/falk-m/grav-plugin-admin-blocks/README.md
 license: MIT
 
 dependencies:
     - { name: grav, version: '>=1.7.42' }
+    - { name: admin, version: '>=1.0.0' }
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    use_demo:
+      type: toggle
+      label: PLUGIN_BLOCKS.USE_DEMO
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool

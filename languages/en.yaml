@@ -1,2 +1,12 @@
 PLUGIN_BLOCKS:
-  ADD: Add
+  USE_DEMO: enable demo page type
+  ADD: Add block
+  DELETE: Delete block
+  CANCEL: Cancel
+  NEW_HEADLINE: Add new block
+  ACTION_ADD: add
+  ACTION_REMOVE: remove
+  ACTION_UP: up
+  ACTION_DOWN: down
+  ACTION_EXPAND: expand
+  ACTION_COLLAPSE: collapse

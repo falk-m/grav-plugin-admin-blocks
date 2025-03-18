@@ -1,11 +1,11 @@
 (($) => {
   $.fn.BlockConfigurator = function(color) {
 
-    let _addOnIndex = -1;
+    let _addPosition = 'top';
 
     const _openSelection = function($list, event){
       let button = $(event.currentTarget);
-      _addOnIndex = button.data('block-add-index');
+      _addPosition = button.data('block-add-position');
       $list.find('[data-block-element="dialog-new"]')[0].showModal()
     }
 
@@ -23,15 +23,20 @@
       template = template.replaceAll(/\|--BLOCK-UID--\|/ig, uuidv4())
   
       const listItemsHolder = $list.find('[data-block-element="list"]');
+
+      console.log(_addPosition);
   
-      if(_addOnIndex == 'prepend'){
+      if(_addPosition == 'top'){
           listItemsHolder.prepend(template);
       }
-      else if(_addOnIndex == 'append'){
+      else if(_addPosition == 'bottom'){
           listItemsHolder.append(template);
       }
       else {
-        $(template).insertAfter(listItemsHolder.children().eq(_addOnIndex));
+        const block = $list.find(`[data-block-id="${_addPosition}"]`);
+        if(block.length == 1){
+          $(template).insertAfter(block);
+        }
       }
   
       $list.find('[data-block-element="dialog-new"]')[0].close()
@@ -56,34 +61,12 @@
       _afterChangeList($list);
     }
 
-    const _reindex = function($list) {
-
-      const listItemsHolder = $list.find('[data-block-element="list"]');
-      const items = listItemsHolder.find('> li');
-  
-      items.each((index, item) => {
-        item = $(item);
-        item[index == 0 ? 'addClass' : 'removeClass']('blk-first');
-        item[index == (item.length -1) ? 'addClass' : 'removeClass']('blk-last');
-
-        item.find('[data-block-add-index]').attr('data-block-add-index', index)
-        item.find('[data-block-element="sort-field"]').val(index);
-      });
-    }
-
     const _toogleItem = function(event) {
       let button = $(event.currentTarget);
       let $item = $(button.closest('li'));
 
-
-      if($item.hasClass('blk-small')){
-        $item.removeClass('blk-small');
-        button.removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-down');
-        return;
-      }
-  
-      button.removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-right');
-      $item.addClass('blk-small');
+      const collapseClass = 'blocks__block--collapsed';
+      $item[$item.hasClass(collapseClass) ? 'removeClass' : 'addClass'](collapseClass)
     }
 
     let _removeElement = null;
@@ -103,7 +86,6 @@
 
     const _afterChangeList = function($list){
 
-      _reindex($list);
       const listItemsHolder = $list.find('[data-block-element="list"]');
   
       if(listItemsHolder.children().length == 0){
@@ -113,8 +95,19 @@
       }
     }
 
+    const _closeDialogOnBacktrop = function(event){
+      if (event.target.tagName.toLowerCase() === 'dialog') {
+        setTimeout(() => {
+          event.target.close();
+        }, 100);
+      }
+    }
+
+    const _closeDialog = function(event){
+      $(event.target).closest('dialog')[0].close();
+    }
+
     return this.each(function() {
-     
         const $list = $(this);
         
         if($list.attr('data-blocks-initialized')){
@@ -128,6 +121,9 @@
         $list.on('click', `[data-block-action="open-remove-dialog"]`, (event) => _openRemoveDialog($list, event));
         $list.on('click', `[data-block-action="remove"]`, (event) => _remove($list, event));
         $list.on('click', `[data-block-action="move"]`, (event) => _move($list, event));
+        $list.on('click', `dialog`, (event) => _closeDialogOnBacktrop(event));
+        $list.on('click', `[data-block-action="close-dialog"]`, (event) => _closeDialog(event));
+        
     });
   };
 
