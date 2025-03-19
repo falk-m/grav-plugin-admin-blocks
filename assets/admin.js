@@ -20,7 +20,7 @@
       let button = $(event.currentTarget);
       let template = button.data('block-template-html');
 
-      template = template.replaceAll(/\|--BLOCK-UID--\|/ig, uuidv4())
+      template = template.replaceAll(/--BLOCK-UID--/ig, uuidv4())
   
       const listItemsHolder = $list.find('[data-block-element="list"]');
 

@@ -2,12 +2,17 @@
 
 ![Config](./assets/intro.png)
 
-Add a modular way do manage content of a page like other CMS, e.g. Kirby or Redaxo.
+This plugin let you manage our page content in modular blocks and not in one big markdown field.
 
+It's simple and flexible. Define blocks in your page blueprints and use them in the admin panel to orchestrate the content.
+Add, edit, sort, remove, ...
 
-## usage
+## Usage
 
 ### extend page types
+
+Core feature is a new `blocks` field type. Each child field of these new field type defines a content block.
+This could be a single input field or a section with multiple fields inside.
 
 ```yaml
 header.blocks:
@@ -35,11 +40,19 @@ header.blocks:
             label: Image
 ```
 
-### edit page in admin
+A full example is available in file [`./blueprints/pages/blocks.yaml`](./user/plugins/admin-addon-blocks/blueprints/pages/blocks.yaml).
+
+### Edit page in admin
+
+In the admin panel is an editor integrated to manage the blocks of a page:  
 
 ![Config](./assets/demo.png)
 
-### or edit page in editor
+
+### edit page in editor
+
+The 'blocks' element store the content as yaml in the markdown field header.
+Each block gets a unique ID.
 
 ```yaml
 ---
@@ -57,9 +70,15 @@ blocks:
 ---
 ```
 
-### extend the theme
+### Extend the theme
 
 ![Config](./assets/page.png)
+
+Let the theme know how to interpret the blocks.
+
+The [example](./templates/page/blocks.html.twig) adds a 'blocks' page type to your templates. 
+
+You can also extend the 'partials/base.html.twig' file of your theme to use blocks on all page types.
 
 ```html
 {% set blocks = (page.header.blocks is null ? [] : page.header.blocks) %}
@@ -76,6 +95,10 @@ blocks:
     </div>
 {% endfor %}
 ```
+
+---
+
+Each block gets a template in an own file:
 
 `path/to/active/theme/templates/partials/blocks/headline.html.twig`
 
@@ -97,8 +120,7 @@ blocks:
 
 ```
 {{ page.media[content].resize(200,200).html()|raw }}
-```
-
+```           
 
 ## Installation
 
@@ -119,6 +141,11 @@ In the **Plugins** section, hit the **[+ Add]** button, search for Admin Addon P
 To install the plugin manually, download the ZIP version of this repository and unzip it under `/your/site/grav/user/plugins`. Then rename the folder to `admin-addon-blocks`.
 
 ## Configuration
+
+After installation the plugin is enabled by default. There are also new page type 'Blocks' available in the admin interface.
+
+This page type is only for testing and presentation. You should extend our blueprints and theme.
+
 
 ### Admin Tool Web Interface
 

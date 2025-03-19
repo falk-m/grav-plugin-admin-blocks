@@ -1,7 +1,7 @@
 name: Admin Addon Page Blocks
 type: plugin
 version: 1.0.0
-description: Adds an simple modular block manager to a page instead of markdown field
+description: Define blocks in your page blueprints and use them in the admin panel to orchestrate the content.
 icon: empire
 author:
   name: Falk Mu://er
@@ -10,7 +10,7 @@ author:
 homepage: https://github.com/falk-m/grav-plugin-admin-blocks
 keywords: admin, plugin, manager, panel
 bugs: https://github.com/falk-m/grav-plugin-admin-blocks/issues
-docs: https://github.com/falk-m/grav-plugin-admin-blocks/README.md
+docs: https://github.com/falk-m/grav-plugin-admin-blocks/blob/master/README.md
 license: MIT
 
 dependencies:

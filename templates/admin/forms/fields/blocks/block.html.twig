@@ -1,5 +1,5 @@
 {% set label = (label is null ? field.label : label) %}
-{% set key = (label is null ? '|--BLOCK-UID--|' : key) %}
+{% set key = (label is null ? '--BLOCK-UID--' : key) %}
 {% set collapsed = (collapsed is null ? false : collapsed) %}
 {% set field_templates = (field_templates is null ? '' : field_templates) %}
 {% set template_data = (template_data is null ? null : template_data) %}

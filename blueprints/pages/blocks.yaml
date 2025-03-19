@@ -31,13 +31,24 @@ form:
                         type: text
                         label: Subtext
                   .text:
-                    type: editor
-                    label: Inhalt
+                      type: editor
+                      label: Content
                   .image:
                       type: filepicker
                       folder: 'self@'
                       preview_images: true
                       label: Image
+                  .url-list:
+                      type: list
+                      style: vertical
+                      label: Url list
+                      fields:
+                        .url:
+                          type: text
+                          label: Url
+                        .title:
+                          type: text
+                          label: Title
             header.media_order:
               type: pagemedia
               label: PLUGIN_ADMIN.PAGE_MEDIA
