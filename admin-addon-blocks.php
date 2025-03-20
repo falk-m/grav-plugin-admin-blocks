@@ -62,7 +62,7 @@ class AdminAddonBlocksPlugin extends Plugin
      */
     public function onPluginsInitialized(): void
     {
-        $use_demo = $this->config->get('plugins.blocks.use_demo');
+        $use_demo = $this->config->get('plugins.admin-addon-blocks.use_demo');
 
         if ($this->isAdmin()) {
             /** @var UserInterface|null $user */
