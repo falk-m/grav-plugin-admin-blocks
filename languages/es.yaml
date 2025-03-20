@@ -1,0 +1,12 @@
+PLUGIN_BLOCKS:
+  USE_DEMO: habilitar tipo de página de demostración
+  ADD: Añadir bloque
+  DELETE: Eliminar bloque
+  CANCEL: Cancelar
+  NEW_HEADLINE: Añadir nuevo bloque
+  ACTION_ADD: añadir
+  ACTION_REMOVE: eliminar
+  ACTION_UP: arriba
+  ACTION_DOWN: abajo
+  ACTION_EXPAND: expandir
+  ACTION_COLLAPSE: colapsar
