@@ -2,6 +2,7 @@
 
 namespace Grav\Plugin;
 
+use Grav\Common\Page\Interfaces\PageInterface;
 use \Grav\Common\Plugin;
 
 use RocketTheme\Toolbox\Event\Event;
@@ -18,6 +19,7 @@ class AdminBlocksPlugin extends Plugin
             'onAssetsInitialized' => ['onAssetsInitialized', 0],
             'onAdminCompilePresetSCSS' => ['onAdminCompilePresetSCSS', 0],
             'onPluginsInitialized' => [['onPluginsInitialized', 0]],
+            'onTNTSearchIndex' => ['onTNTSearchIndex', 0]
         ];
     }
 
@@ -107,5 +109,17 @@ class AdminBlocksPlugin extends Plugin
         /** @var Types $types */
         $types = $event->types;
         $types->register('blocks', 'plugins://' . self::PLUGIN_NAME . '/blueprints/pages/blocks.yaml');
+    }
+
+    public function onTNTSearchIndex(Event $e)
+    {
+        $fields = $e['fields'];
+
+        /** @var PageInterface */
+        $page = $e['page'];
+
+        if (isset($page->header()->blocks)) {
+            $fields->blocks = json_encode($page->header()->blocks);
+        }
     }
 }

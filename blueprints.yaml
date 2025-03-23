@@ -1,6 +1,6 @@
 name: Admin Content Blocks
 type: plugin
-version: 1.0.0
+version: 1.1.1
 description: Define blocks in your page blueprints and use them in the admin panel to orchestrate the content.
 icon: empire
 author:
