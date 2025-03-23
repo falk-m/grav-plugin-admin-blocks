@@ -1,4 +1,4 @@
-name: Admin Addon Page Blocks
+name: Admin Content Blocks
 type: plugin
 version: 1.0.0
 description: Define blocks in your page blueprints and use them in the admin panel to orchestrate the content.

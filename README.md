@@ -1,4 +1,4 @@
-# Grav Admin Addon Page Blocks Plugin
+# Grav Plugin: Admin Content Blocks
 
 ![Config](./assets/intro.png)
 
@@ -40,7 +40,7 @@ header.blocks:
             label: Image
 ```
 
-A full example is available in file [`./blueprints/pages/blocks.yaml`](./user/plugins/admin-addon-blocks/blueprints/pages/blocks.yaml).
+A full example is available in file [`./blueprints/pages/blocks.yaml`](./blueprints/pages/blocks.yaml).
 
 ### Edit page in admin
 
@@ -129,16 +129,16 @@ Each block gets a template in an own file:
 If you can access your Grav installation via the command line, install the plugin by typing the following from your Grav root:
 
 ```
-bin/gpm install admin-addon-blocks
+bin/gpm install admin-blocks
 ```
 
 ### Admin Tool Web Interface
 
-In the **Plugins** section, hit the **[+ Add]** button, search for Admin Addon Page Blocks and install.
+In the **Plugins** section, hit the **[+ Add]** button, search for Admin Content Blocks and install.
 
 ### Manual Installation
 
-To install the plugin manually, download the ZIP version of this repository and unzip it under `/your/site/grav/user/plugins`. Then rename the folder to `admin-addon-blocks`.
+To install the plugin manually, download the ZIP version of this repository and unzip it under `/your/site/grav/user/plugins`. Then rename the folder to `admin-blocks`.
 
 ## Configuration
 
@@ -153,7 +153,7 @@ This page type is only for testing and presentation. You should extend our bluep
 
 ### Manual configuration
 
-`/your/site/grav/user/config/plugins/admin-addon-blocks.yaml`
+`/your/site/grav/user/config/plugins/admin-blocks.yaml`
 
 ```yaml
 enabled: true

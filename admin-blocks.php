@@ -6,10 +6,10 @@ use \Grav\Common\Plugin;
 
 use RocketTheme\Toolbox\Event\Event;
 
-class AdminAddonBlocksPlugin extends Plugin
+class AdminBlocksPlugin extends Plugin
 {
 
-    const PLUGIN_NAME = 'admin-addon-blocks';
+    const PLUGIN_NAME = 'admin-blocks';
 
     public static function getSubscribedEvents(): array
     {
@@ -62,7 +62,7 @@ class AdminAddonBlocksPlugin extends Plugin
      */
     public function onPluginsInitialized(): void
     {
-        $use_demo = $this->config->get('plugins.admin-addon-blocks.use_demo');
+        $use_demo = $this->config->get('plugins.' . self::PLUGIN_NAME . '.use_demo');
 
         if ($this->isAdmin()) {
             /** @var UserInterface|null $user */
